@@ -58,24 +58,31 @@
                     </div>
                   </div>
 
-                  <div class="field form-group mb-3">
-                    <label>Issue Type</label>
-                    <select class="form-select" aria-label="Default select example" id="category">
-                      <option value="">Select Category</option>
-                      <option value="os">O S Issue</option>
-                      <option value="software">Software</option>
-                    </select>
+                  <select class="form-select" id="category">
+                    <option value="">Select Category</option>
+                    <option value="hardware">Hardware</option>
+                    <option value="software">Software</option>
+                    <option value="both">Both</option>
+                  </select>
+                  <div id="software-issues" style="display:none;">
+                    <input type="radio" name="software-issue" value="os-issue"> OS Issue<br>
+                    <input type="radio" name="software-issue" value="application-issue"> Application Issue<br>
+                    <div id="os-issues" style="display:none;">
+                      <select class="form-select mb-2" id="os-options">
+                        <option value="">Select OS Issue</option>
+                        <option value="windows-xp">Windows XP</option>
+                        <option value="windows-7">Windows 7</option>
+                        <option value="windows-10">Windows 10</option>
+                      </select>
+                    </div>
+                    <div id="application-issues" style="display:none;">
+                      <select class="form-select" id="application-options">
+                        <option value="">Select Application Issue</option>
+                        <option value="aap1">Application1</option>
+                        <option value="aap2">Application2</option>
+                      </select>
+                    </div>
                   </div>
-                  <div id="os-options" style="display:none;">
-                    <label><input type="radio" name="os" value="windows10"> Windows 10</label> <br>
-                    <label><input type="radio" name="os" value="Windows"> Windows 11</label>
-                  </div>
-
-                  <!-- <div id="software-options" style="display:none;">
-                    <label><input type="radio" name="type" value="laptop"> Laptop</label>
-                    <label><input type="radio" name="type" value="desktop"> Desktop</label>
-                  </div> -->
-
 
                   <div class="field form-group mb-3 mt-3">
                     <label>Priority</label>
@@ -213,7 +220,7 @@
 
             <button class="btn btn-outline-primary mb-2" data-bs-toggle="modal" data-bs-target="#myModal1">
               Edit <i class="fa fa-pencil" style="cursor: pointer;"></i>
-              </botton>
+            </button>
           </div>
 
           <!-- The Modal -->
@@ -246,23 +253,31 @@
                     </form>
                   </div>
 
-                  <div class="field form-group mb-3">
-                    <label>Issue Type</label>
-                    <select class="form-select" aria-label="Default select example" id="category1">
-                      <option value="">Select Category</option>
-                      <option value="os">O S Issue</option>
-                      <option value="software">Software</option>
-                    </select>
+                  <select class="form-select" id="category1">
+                    <option value="">Select Category</option>
+                    <option value="hardware">Hardware</option>
+                    <option value="software">Software</option>
+                    <option value="both">Both</option>
+                  </select>
+                  <div id="software-issues1" style="display:none;">
+                    <input type="radio" name="software-issue" value="os-issue"> OS Issue<br>
+                    <input type="radio" name="software-issue" value="application-issue"> Application Issue<br>
+                    <div id="os-issues1" style="display:none;">
+                      <select class="form-select mb-2" id="os-options">
+                        <option value="">Select OS Issue</option>
+                        <option value="windows-xp">Windows XP</option>
+                        <option value="windows-7">Windows 7</option>
+                        <option value="windows-10">Windows 10</option>
+                      </select>
+                    </div>
+                    <div id="application-issues1" style="display:none;">
+                      <select class="form-select" id="application-options">
+                        <option value="">Select Application Issue</option>
+                        <option value="aap1">Application1</option>
+                        <option value="aap2">Application2</option>
+                      </select>
+                    </div>
                   </div>
-                  <div id="os-options1" style="display:none;">
-                    <label><input type="radio" name="os" value="windows10"> Windows 10</label> <br>
-                    <label><input type="radio" name="os" value="Windows"> Windows 11</label>
-                  </div>
-
-                  <!-- <div id="software-options" style="display:none;">
-                    <label><input type="radio" name="type" value="laptop"> Laptop</label>
-                    <label><input type="radio" name="type" value="desktop"> Desktop</label>
-                  </div> -->
 
                   <div class="field form-group mb-3 mt-3">
                     <label>Priority</label>
@@ -479,34 +494,63 @@
     });
 
     $(document).ready(function () {
-      $("#category").change(function () {
-        if ($(this).val() == "os") {
-          $("#os-options").show();
-          $("#software-options").hide();
-        } else if ($(this).val() == "hardware") {
-          $("#os-options").hide();
-          $("#software-options").show();
+      $('#category1').on('change', function () {
+        var selectedOption = $(this).val();
+        if (selectedOption == 'software') {
+          $('#software-issues1').show();
         } else {
-          $("#os-options").hide();
-          $("#software-options").hide();
+          $('#software-issues1').hide();
+        }
+        if (selectedOption == 'hardware') {
+          // handle hardware dropdown here
+        }
+        if (selectedOption == 'both') {
+          // handle both dropdown here
+        }
+      });
+
+      $('input[name="software-issue"]').on('change', function () {
+        var selectedIssue = $(this).val();
+        if (selectedIssue == 'os-issue') {
+          $('#os-issues1').show();
+          $('#application-issues1').hide();
+        } else {
+          $('#os-issues').hide();
+          $('#application-issues1').show();
         }
       });
     });
+
+
+
     $(document).ready(function () {
-      $("#category1").change(function () {
-        if ($(this).val() == "os") {
-          $("#os-options1").show();
-          $("#software-options").hide();
-        } else if ($(this).val() == "hardware") {
-          $("#os-options1").hide();
-          $("#software-options").show();
+      $('#category').on('change', function () {
+        var selectedOption = $(this).val();
+        if (selectedOption == 'software') {
+          $('#software-issues').show();
         } else {
-          $("#os-options1").hide();
-          $("#software-options").hide();
+          $('#software-issues').hide();
+        }
+        if (selectedOption == 'hardware') {
+          // handle hardware dropdown here
+        }
+        if (selectedOption == 'both') {
+          // handle both dropdown here
+        }
+      });
+
+      $('input[name="software-issue"]').on('change', function () {
+        var selectedIssue = $(this).val();
+        if (selectedIssue == 'os-issue') {
+          $('#os-issues').show();
+          $('#application-issues').hide();
+        } else {
+          $('#os-issues').hide();
+          $('#application-issues').show();
         }
       });
     });
-    
+
   </script>
 </body>
 
